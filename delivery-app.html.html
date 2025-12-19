@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App de Delivery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #ff6b00;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #e65c00;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>gelateria graziatto</h1>
+
+  <div class="container">
+    <!-- Produtos -->
+    <div class="card">
+      <h2>Produtos</h2>
+      <ul id="listaProdutos">
+        <li>
+          Gelato de nutela e ninho - R$15,00
+          <button onclick="adicionarProduto('Gelato de Chocolate', 15)">Adicionar</button>
+        </li>
+        <li>
+          Gelato de doce de leite - R$14,00
+          <button onclick="adicionarProduto('Gelato de Baunilha', 14)">Adicionar</button>
+        </li>
+        <li>
+          Crepe Francês - R$22,00
+          <button onclick="adicionarProduto('Crepe Francês', 22)">Adicionar</button>
+        </li>
+      </ul>
+    </div>
+    
+
+    <!-- Carrinho -->
+    <div class="card">
+      <h2>🛒 Carrinho</h2>
+      <ul id="carrinho"></ul>
+      <div class="total">Total: R$ <span id="total">0.00</span></div>
+      <button onclick="finalizarPedido()">Finalizar Pedido</button>
+      <p id="status"></p>
+    </div>
+  </div>
+
+  <script>
+    let total = 0;
+
+    function adicionarProduto(nome, preco) {
+      const carrinho = document.getElementById('carrinho');
+      const item = document.createElement('li');
+      item.textContent = `${nome} - R$ ${preco.toFixed(2)}`;
+      carrinho.appendChild(item);
+
+      total += preco;
+      document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    function finalizarPedido() {
+      if (total === 0) {
+        alert('Adicione pelo menos um produto!');
+        return;
+      }
+
+      document.getElementById('status').textContent = '✅ Pedido criado! Status: Em preparo';
+
+      setTimeout(() => {
+        document.getElementById('status').textContent = '🚴 Pedido saiu para entrega!';
+      }, 3000);
+
+      setTimeout(() => {
+        document.getElementById('status').textContent = '📦 Pedido entregue! Bom apetite 😋';
+      }, 6000);
+    }
+  </script>
+
+</body>
+</html>
